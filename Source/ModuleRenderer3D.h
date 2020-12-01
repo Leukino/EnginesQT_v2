@@ -51,4 +51,6 @@ public:
 	Mesh* mesh = nullptr;
 	GLuint newTexture = 0;
 
+	float fov = 90.0f;
+
 };

@@ -6,6 +6,7 @@
 #include "Dependencies/ImGui/imgui.h"
 #include "Globals.h"
 #include "Timer.h"
+#include "jsonParser.h"
 
 #define GREEN ImVec4(0.0f, 1.0f, 0.0f, 1.0f)
 
@@ -82,7 +83,7 @@ public:
 	bool drawCheckerTex = false;
 	bool drawTexture = true;
 
-
+	json getterFile;
 };
 
 #endif //__ModuleEditor_H__

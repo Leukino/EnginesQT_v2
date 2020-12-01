@@ -178,6 +178,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="JsonParser.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\ImGui\imconfig.h">
@@ -453,6 +456,12 @@
     <ClInclude Include="ComponentTransform.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Dependencies\jsonCPP\json.hpp">
+      <Filter>Dependencies\jsonCPP</Filter>
+    </ClInclude>
+    <ClInclude Include="jsonParser.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Dependencies">
@@ -497,8 +506,11 @@
     <Filter Include="GameObjects">
       <UniqueIdentifier>{e23e7cde-383e-40a2-8b33-9dd1b15ebfca}</UniqueIdentifier>
     </Filter>
-       <Filter Include="Core">
+    <Filter Include="Core">
       <UniqueIdentifier>{a70620a4-e7bb-47fc-8038-3e9b19f6556c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\jsonCPP">
+      <UniqueIdentifier>{6767b1ee-4ada-49c0-bb70-99559e0a6a1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -43,8 +43,25 @@ bool ModuleEditor::Start()
 	brightness = SDL_GetWindowBrightness(App->window->window);
 	SDL_GetVersion(&version);
 
+	getterFile = App->jsonLoader.load("./Settings/settings.json"); // JSON TEMPORARY LOAD
+	int timesUsed = getterFile["App Settings"]["TimesUsed"].get<int>();
+	
+	//string getterFileInfo = App->jsonLoader.jsonToString(getterFile); // CONVERT JSON TO STRING
+	
+	LOG("Woah loaded something: %d", timesUsed);
+	timesUsed++;
+	json fooFile = json(json::value_t::object);
+	fooFile = {
+		{"App Settings",
+			{
+				{"Settings",22}, {"TimesUsed", timesUsed}
+			}
+			},
+	};
 
+	App->jsonLoader.save(fooFile, "./Settings/settings.json"); //JSON TEMPORARY SAVE
 
+	//LOG("supposedly saved something at settings");
 	return true;
 }
 update_status ModuleEditor::PreUpdate(float dt)
@@ -181,7 +198,7 @@ void ModuleEditor::ConfigurationWindow()
 		if (ImGui::CollapsingHeader("Application"))
 		{
 
-			ImGui::SliderInt("Max FPS", &App->framerateCap, 1, 60);
+			ImGui::SliderInt("Max FPS", &App->framerateCap, 1, 144);
 
 			ImGui::Text("Limit Framerate:");
 			ImGui::SameLine();
@@ -199,8 +216,8 @@ void ModuleEditor::ConfigurationWindow()
 			if (ImGui::Checkbox("Full Desktop", &full_desktop)) App->window->SetFullscreenDesktop(full_desktop);
 
 			ImGui::Separator();
-			if(ImGui::SliderInt("Width", &window_width, 350, 1500, "%d")) SDL_SetWindowSize(App->window->window, window_width, window_height);
-			if(ImGui::SliderInt("Height", &window_height, 350, 1200, "%d")) SDL_SetWindowSize(App->window->window, window_width, window_height);
+			if(ImGui::SliderInt("Width", &window_width, 350, 1920, "%d")) SDL_SetWindowSize(App->window->window, window_width, window_height);
+			if(ImGui::SliderInt("Height", &window_height, 350, 1080, "%d")) SDL_SetWindowSize(App->window->window, window_width, window_height);
 			
 
 			ImGui::SliderFloat("Brightness", &brightness, 0, 1, "%.3f");

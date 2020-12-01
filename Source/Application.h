@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "Timer.h"
 
+#include "jsonParser.h"
 
 class Module;												
 class ModuleWindow;
@@ -52,14 +53,14 @@ public:
 	uint					prev_last_sec_frame_count = 0;
 	uint					framerate_cap = 0;
 	int						capped_ms = -1;
-	int						framerateCap = 60; // Max amount of FPS
+	int						framerateCap = 144; // Max amount of FPS
 	int						totalBars = 100; // Number of bars that appear in the histogram
 	std::vector<float> fpsVec;
 	std::vector<float> msVec;
 
 	float GetDT() const;
 	float	dt;
-
+	JsonStuff jsonLoader;
 
 private:
 

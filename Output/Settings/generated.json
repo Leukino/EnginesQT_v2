@@ -1,0 +1,39 @@
+{
+	"random": 100,
+	"random float": 84.431,
+	"bool": true,
+	"date": "1993-03-06",
+	"regEx": "helloooooooooooooooooooooooooooooooooooooooooooooo world",
+	"enum": "generator",
+	"firstname": "Olivette",
+	"lastname": "Grosz",
+	"city": "Tiraspol",
+	"country": "Finland",
+	"countryCode": "IO",
+	"email uses current data": "Olivette.Grosz@gmail.com",
+	"email from expression": "Olivette.Grosz@yopmail.com",
+	"array": [
+		"Sandie",
+		"Dorice",
+		"Benita",
+		"Hallie",
+		"Daryl"
+	],
+	"array of objects": [
+		{
+			"index": 0,
+			"index start at 5": 5
+		},
+		{
+			"index": 1,
+			"index start at 5": 6
+		},
+		{
+			"index": 2,
+			"index start at 5": 7
+		}
+	],
+	"Rhea": {
+		"age": 43
+	}
+}

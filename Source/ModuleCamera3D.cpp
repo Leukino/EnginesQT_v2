@@ -175,7 +175,7 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetRawViewMatrix()
 {
-	CalculateViewMatrix();
+	CalculateViewMatrix();									  
 	return &ViewMatrix;
 }
 
