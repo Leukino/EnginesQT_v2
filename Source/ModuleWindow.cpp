@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "ModuleWindow.h"
-
 ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 {
 	window = NULL;
@@ -26,8 +25,15 @@ bool ModuleWindow::Init()
 	else
 	{
 		//Create window
-		width = SCREEN_WIDTH * SCREEN_SIZE;
-		height = SCREEN_HEIGHT * SCREEN_SIZE;
+		//if (width < 1 || height < 1) {
+		//	width = SCREEN_WIDTH * SCREEN_SIZE;
+		//	height = SCREEN_HEIGHT * SCREEN_SIZE;
+		//}
+
+		if (width < 1 || height < 1) {
+			width = SCREEN_WIDTH * SCREEN_SIZE;
+			height = SCREEN_HEIGHT * SCREEN_SIZE;
+		}
 		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
@@ -55,7 +61,7 @@ bool ModuleWindow::Init()
 		}
 
 		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
-
+		//gamewindow = SDL_CreateWindow("Sexo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 500, 500, flags | SDL_WINDOW_RESIZABLE); //SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
 		if(window == NULL)
 		{
 			LOG("Window could not be created! SDL_Error: %s\n", SDL_GetError());
@@ -65,6 +71,7 @@ bool ModuleWindow::Init()
 		{
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
+			//game_surface = SDL_GetWindowSurface(gamewindow);
 		}
 	}
 

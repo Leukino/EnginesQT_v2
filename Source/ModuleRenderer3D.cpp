@@ -34,6 +34,7 @@ bool ModuleRenderer3D::Init()
 	
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
+	//gamewindowContext = SDL_GL_CreateContext(App->window->gamewindow);
 	glewInit();
 
 	if(context == NULL)
@@ -41,7 +42,7 @@ bool ModuleRenderer3D::Init()
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-	
+
 	if(ret == true)
 	{
 		//Use Vsync
@@ -157,6 +158,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	App->editor->DrawGUI();
 
 	SDL_GL_SwapWindow(App->window->window);
+	//SDL_GL_MakeCurrent(App->window->window, context);
+	
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -380,4 +384,16 @@ void ModuleRenderer3D::SetPolygonssmooth(bool state) {
 		glEnable(GL_POLYGON_SMOOTH);
 	else if (state == true)
 		glDisable(GL_POLYGON_SMOOTH);
+}
+void ModuleRenderer3D::SetScissor(bool state) {
+	if (state == false)
+		glEnable(GL_CLIP_DISTANCE2);
+	else if (state == true)
+		glDisable(GL_CLIP_DISTANCE2);
+}
+void ModuleRenderer3D::SetStencil(bool state) {
+	if (state == false)
+		glEnable(GL_STENCIL_TEST);
+	else if (state == true)
+		glDisable(GL_STENCIL_TEST);
 }

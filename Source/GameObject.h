@@ -9,7 +9,7 @@ class GameObject {
 //Properties
 public:
 	std::string name;
-
+	std::string uuid;
 	std::vector<Component*> components;
 	bool active;
 

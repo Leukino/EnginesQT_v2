@@ -16,6 +16,7 @@ public:
 	ModuleEditor(bool start_enabled = true);
 	~ModuleEditor();
 
+	bool Init() override;
 	bool Start() override;
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
@@ -33,6 +34,9 @@ public:
 	void AddLog(std::string text);
 	void InspectorWindow();
 	void HierarchyWindow();
+	void GameWindow();
+	/*unsigned int draggingStart();
+	unsigned int draggingDrop();*/
 
 	const char* GetSystemCaps();
 
@@ -54,6 +58,10 @@ public:
 	char label[32];
 	int window_width = 0;
 	int window_height = 0;
+	int gamewindow_x = 0;
+	int gamewindow_y = 0;
+	int gamewindow_width = 0;
+	int gamewindow_height = 0;
 	float brightness = 0;
 
 	bool dockingWindow = true;
@@ -72,6 +80,8 @@ public:
 	bool texture2D = false;
 	bool cubemap = false;
 	bool polygonssmooth = false;
+	bool scissortest = false;
+	bool stenciltest = false;
 
 	bool fullscreen = false;
 	bool resizable = false;
@@ -84,6 +94,8 @@ public:
 	bool drawTexture = true;
 
 	json getterFile;
+
+	bool dragging_object = false;
 };
 
 #endif //__ModuleEditor_H__

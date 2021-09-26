@@ -1,6 +1,9 @@
 {
- "App Settings": {
-  "Settings": 22,
-  "TimesUsed": 422
+ "Editor": null,
+ "Window": {
+  "Borderless": false,
+  "Fullscreen": false,
+  "Height": 952,
+  "Width": 1726
  }
 }

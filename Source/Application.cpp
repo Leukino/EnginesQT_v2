@@ -26,6 +26,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.16f)
 
 	// Main Modules
 
+	AddModule(editor);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
@@ -33,7 +34,6 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.16f)
 
 	// Scenes
 	AddModule(scene_intro);
-	AddModule(editor);
 	// Renderer last!
 
 	AddModule(renderer3D);

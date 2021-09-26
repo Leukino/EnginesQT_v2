@@ -6,6 +6,7 @@
 #include "ModuleSceneIntro.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ModuleInput.h"
 
 #include "Dependencies/ImGUI/imgui.h"
 #include "Dependencies/ImGUI/imgui_internal.h"
@@ -25,6 +26,17 @@ ModuleEditor::~ModuleEditor()
 {
 }
 
+bool ModuleEditor::Init(){
+
+	getterFile = App->jsonLoader.load("./Settings/settings.json"); // JSON TEMPORARY LOAD
+	App->window->width = getterFile["Window"]["Width"].get<int>();
+	App->window->height = getterFile["Window"]["Height"].get<int>();
+
+	window_width = App->window->width;
+	window_height = App->window->height;
+	return true;
+}
+
 bool ModuleEditor::Start()
 {
 	LOG("Init Editor");
@@ -38,30 +50,13 @@ bool ModuleEditor::Start()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init(NULL);
 
-	window_width = App->window->width;
-	window_height = App->window->height;
 	brightness = SDL_GetWindowBrightness(App->window->window);
 	SDL_GetVersion(&version);
 
-	getterFile = App->jsonLoader.load("./Settings/settings.json"); // JSON TEMPORARY LOAD
-	int timesUsed = getterFile["App Settings"]["TimesUsed"].get<int>();
 	
 	//string getterFileInfo = App->jsonLoader.jsonToString(getterFile); // CONVERT JSON TO STRING
 	
-	LOG("Woah loaded something: %d", timesUsed);
-	timesUsed++;
-	json fooFile = json(json::value_t::object);
-	fooFile = {
-		{"App Settings",
-			{
-				{"Settings",22}, {"TimesUsed", timesUsed}
-			}
-			},
-	};
-
-	App->jsonLoader.save(fooFile, "./Settings/settings.json"); //JSON TEMPORARY SAVE
-
-	//LOG("supposedly saved something at settings");
+	LOG("Configuration file loaded");
 	return true;
 }
 update_status ModuleEditor::PreUpdate(float dt)
@@ -79,7 +74,6 @@ update_status ModuleEditor::PreUpdate(float dt)
 
 update_status ModuleEditor::Update(float dt)
 {
-
 	Docking();
 	if (!MainMenuBar()) return UPDATE_STOP;
 	AboutWindow();
@@ -88,7 +82,29 @@ update_status ModuleEditor::Update(float dt)
 	if (show_demo_window) ImGui::ShowDemoWindow(&show_demo_window);
 	HierarchyWindow();
 	InspectorWindow();
+	GameWindow();
 
+	if (App->input->GetKey(SDLK_LCTRL) && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+		json fooFile = json(json::value_t::object);
+		fooFile = {
+			{"Window",
+				{
+					{"Height", App->editor->window_height}, 
+					{"Width",App->editor->window_width},
+					{"Fullscreen",App->editor->fullscreen},
+					{"Borderless",App->editor->borderless},
+				}
+				},
+			{"Editor",
+				{
+			// write things here dunno
+
+				}
+				},
+		};
+		App->jsonLoader.save(fooFile, "./Settings/settings.json"); //JSON TEMPORARY SAVE
+		LOG("Configuration file saved");
+	}
 	ImGui::End();
 
 	return UPDATE_CONTINUE;
@@ -298,6 +314,12 @@ void ModuleEditor::ConfigurationWindow()
 			if (ImGui::Checkbox("Polygons smooth", &polygonssmooth)) {
 				App->renderer3D->SetPolygonssmooth(polygonssmooth);
 			}
+			if (ImGui::Checkbox("Scissor Test", &scissortest)) {
+				App->renderer3D->SetScissor(scissortest);
+			}
+			if (ImGui::Checkbox("Stencil Test", &stenciltest)) {
+				App->renderer3D->SetStencil(stenciltest);
+			}
 
 		}
 		if (ImGui::CollapsingHeader("Draw Settings"))
@@ -307,9 +329,17 @@ void ModuleEditor::ConfigurationWindow()
 			if (ImGui::Checkbox("Enable Checker Tex", &drawCheckerTex)) { drawTexture = false; }
 			if (ImGui::Checkbox("Enable Texture", &drawTexture)) { drawCheckerTex = false; }
 		}
-
+		
 		ImGui::End();
 	}
+}
+
+void ModuleEditor::GameWindow() 
+{
+	bool trueness = true;
+	ImGui::Begin("Game Window", &trueness);
+	
+	ImGui::End();
 }
 
 void ModuleEditor::InspectorWindow()
@@ -369,6 +399,25 @@ void ModuleEditor::HierarchyWindow()
 		ImGui::Begin("Hierarchy", &show_hierarchy_window);
 		
 		DrawHierarchyLevel(App->scene_intro->game_objects);
+
+		//for (int i = 0; i < App->scene_intro->game_objects.size(); ++i)
+		//{
+		//	if (ImGui::IsItemClicked(0) && !dragging_object)
+		//	{
+		//		dragging_object = true;
+		//	}
+		//}
+		//if (ImGui::BeginDragDropTarget())
+		//{
+		//	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DUMMY_CELL"))
+		//	{
+		//		GOFunctions::ReParentGameObject(dragged_go, go); //We assign the gameobject that should have been carried by the payload
+		//		ComponentTransform* trs = (ComponentTransform*)dragged_go->GetComponent(COMPONENT_TYPE::TRANSFORM);
+		//		trs->needsUpdateGlobal = true; //su puta madre se pondra a entender esto xd123
+		//		dragged_go = nullptr;
+		//	}
+		//	ImGui::EndDragDropTarget();
+		//}
 
 		ImGui::End();
 	}
@@ -507,3 +556,17 @@ int ModuleEditor::GetReserved() {
 	glGetIntegerv(GL_GPU_MEMORY_INFO_EVICTED_MEMORY_NVX, &reserved);
 	return reserved / 1024.0f;
 }
+
+
+//unsigned int ModuleEditor::draggingStart() {
+//	unsigned int itemID = ImGui::GetHoveredID();
+//	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && itemID != 0)
+//		LOG("GUAU! clicked item Poggers %d", itemID);
+//	return itemID;
+//}
+//
+//unsigned int ModuleEditor::draggingDrop() {
+//
+//
+//	return 0;
+//}

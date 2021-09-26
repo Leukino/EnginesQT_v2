@@ -462,6 +462,9 @@
     <ClInclude Include="jsonParser.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Dependencies\uuid_generator\uuid_generator.h">
+      <Filter>Dependencies\uuid_generator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Dependencies">
@@ -512,6 +515,12 @@
     <Filter Include="Dependencies\jsonCPP">
       <UniqueIdentifier>{6767b1ee-4ada-49c0-bb70-99559e0a6a1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dependencies\uuid_generator">
+      <UniqueIdentifier>{802d95a8-d608-4452-a4df-aa1ad2900b63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings and Saves">
+      <UniqueIdentifier>{b8647cc0-575a-44c4-8565-1273bb64d39e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\MathGeoLib\include\Math\Matrix.inl">
@@ -531,6 +540,9 @@
     </None>
     <None Include="Dependencies\MathGeoLib\include\Geometry\QuadTree.inl">
       <Filter>Dependencies\MathGeoLib\Geometry</Filter>
+    </None>
+    <None Include="..\Output\Settings\settings.json">
+      <Filter>Settings and Saves</Filter>
     </None>
   </ItemGroup>
 </Project>

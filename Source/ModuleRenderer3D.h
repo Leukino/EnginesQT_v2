@@ -38,10 +38,14 @@ public:
 	void SetTexture2D(bool active);
 	void SetCubemap(bool active);
 	void SetPolygonssmooth(bool active);
+	void SetScissor(bool active);
+	void SetStencil(bool active);
+
 
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
+	//SDL_GLContext gamewindowContext;
 	mat3x3 NormalMatrix;
 	mat4x4 ProjectionMatrix;
 
@@ -52,5 +56,4 @@ public:
 	GLuint newTexture = 0;
 
 	float fov = 90.0f;
-
 };

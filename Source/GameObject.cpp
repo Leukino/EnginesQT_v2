@@ -4,10 +4,11 @@
 #include "ComponentTexture.h"
 #include "ComponentMesh.h"
 #include <vector>
-
-
+#include "Dependencies/uuid_generator/uuid_generator.h" 
 GameObject::GameObject(std::string name): name(name), active(true)
 {
+	uuid = uuid::generate_uuid();
+	LOG("Generated uuid! %s Pog", uuid);
 	AddComponent(new ComponentTransform(this));
 }
 

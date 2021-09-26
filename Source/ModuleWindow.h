@@ -29,9 +29,11 @@ public:
 
 	//The window we'll be rendering to
 	SDL_Window* window = nullptr;
+	//SDL_Window* gamewindow = nullptr;
 
 	//The surface contained by the window
 	SDL_Surface* screen_surface = nullptr;
+	//SDL_Surface* game_surface = nullptr;
 
 	void		SetFullscreen(bool fullscreen);
 	void		SetResizable(bool resizable);
